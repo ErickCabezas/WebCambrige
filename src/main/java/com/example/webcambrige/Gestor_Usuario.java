@@ -9,8 +9,8 @@ public class Gestor_Usuario {
     public Gestor_Usuario() {
         this.usuarios = new ArrayList<>();
         Usuario usuario1=new Usuario("a","b","1751398924","erick.cabezas@epn.edu.ec","estudiante","0998369390","estudiante","123");
-        Usuario usuario2=new Usuario("a","c","1751398924","erick.cabezas@epn.edu.ec","administrativo","0998369390","admin","123");
-        Usuario usuario3=new Usuario("a","d","1751398924","erick.cabezas@epn.edu.ec","profesor","0998369390","profe","123");
+        Usuario usuario2=new Usuario("a","c","1751398924","erick.cabezas@epn.edu.ec","administrativo","0998369390","administrativo","123");
+        Usuario usuario3=new Usuario("a","d","1751398924","erick.cabezas@epn.edu.ec","profesor","0998369390","profesor","123");
         agregarUsuario(new Usuario("Gerenacial","Gerencial","1751398924","---","gerencial","0999999999","gerente","123"));
         agregarUsuario(usuario1);
         agregarUsuario(usuario2);

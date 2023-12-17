@@ -35,7 +35,7 @@ public class CobrarServlet extends HttpServlet {
     }
 
     public boolean sePuedeCobrar(Usuario usuario, String monto) {
-        return usuario != null && Double.parseDouble(monto)==usuario.getInscripcion().getCurso().getCosto();
+        return usuario != null&& Double.parseDouble(monto)==usuario.getInscripcion().getCurso().getCosto();
     }
 
     public String confirmarPago(Usuario usuario, String modoPago) {

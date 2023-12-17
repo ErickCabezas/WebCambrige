@@ -58,7 +58,7 @@ public class MatriculaServlet extends HttpServlet {
                 +"\nRealice el pago del curso"
                 +"\nen las oficinas de CAMBRIGE "
                 +"\npara finalizar su inscripción"
-                +"\ncosto"+usuario.getInscripcion().getCurso().getCosto();
+                +"\ncosto: $"+usuario.getInscripcion().getCurso().getCosto();
         return textoNotificacion;
     }
 

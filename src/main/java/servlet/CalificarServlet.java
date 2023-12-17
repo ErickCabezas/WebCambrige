@@ -22,7 +22,7 @@ public class CalificarServlet extends HttpServlet {
         if(usuario!=null){
             //misma linea en distintos if's
             if(LoginServlet.gestor_usuario.asignarNivel(usuario,calificacion)){
-                notificacion="Usuario calificado y nivel asignado"+usuario.getNivel();
+                notificacion="Usuario calificado y nivel asignado: "+usuario.getNivel();
             }else {
                 notificacion="Ingrese una calificación valida";
             }
