@@ -1,4 +1,4 @@
-<%@ page import="com.example.webcambrige.Usuario" %><%--
+<%@ page import="entities.Usuario" %><%--
   Created by IntelliJ IDEA.
   User: erick cabezas
   Date: 15/12/2023
@@ -64,7 +64,14 @@
     <div class="txtAgregado">
         <%
             String agregado = ".....";
-            agregado = (String) request.getSession().getAttribute("registro");
+            if((Usuario)request.getSession().getAttribute("registro") != null){
+                usuario = (Usuario)request.getSession().getAttribute("registro");
+                agregado = usuario.getUsuario();
+            }
+        %>
+
+
+        <%
             if (agregado != null) {
         %>
         <p id="usuarioEsRegistrado"><%=agregado%></p>

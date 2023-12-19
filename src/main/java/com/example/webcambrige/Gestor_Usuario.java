@@ -3,64 +3,81 @@ package com.example.webcambrige;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.ConexionBD;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import static entities.ConexionBD.entityManager;
+import entities.Usuario;
+import jakarta.persistence.NoResultException;
+
 public class Gestor_Usuario {
     private List<Usuario> usuarios;
 
     public Gestor_Usuario() {
         this.usuarios = new ArrayList<>();
-        Usuario usuario1=new Usuario("a","b","1751398924","erick.cabezas@epn.edu.ec","estudiante","0998369390","estudiante","123");
-        Usuario usuario2=new Usuario("a","c","1751398924","erick.cabezas@epn.edu.ec","administrativo","0998369390","administrativo","123");
-        Usuario usuario3=new Usuario("a","d","1751398924","erick.cabezas@epn.edu.ec","profesor","0998369390","profesor","123");
-        agregarUsuario(new Usuario("Gerenacial","Gerencial","1751398924","---","gerencial","0999999999","gerente","123"));
-        agregarUsuario(usuario1);
-        agregarUsuario(usuario2);
-        agregarUsuario(usuario3);
-        usuario1.setNivel(4);
     }
 
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
 
-    public Usuario buscarUsuario(String usuarioABuscar) {
-        for (Usuario usuario : usuarios) {
-            if (compararUsuario(usuarioABuscar, usuario)) {
-                return usuario; // Persona encontrada
+    public void agregarUsuario(Usuario usuario){
+        EntityTransaction transaction = null;
+        try{
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(usuario);
+            transaction.commit();
+        }catch(Exception e){
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
             }
+            e.printStackTrace();
+            throw new RuntimeException("Error durante la transaccion");
         }
-        return null; // Persona no encontrada
     }
 
-    public boolean compararUsuario(String usuarioABuscar, Usuario usuario) {
-        return usuario.getLogin().getUsuario().equals(usuarioABuscar);
-    }
-
-
-    public String agregarUsuario(Usuario usuario) {
-        String notificacion = "";
-
+    public Usuario buscarUsuario(String nombreUsuario, String contrasenia) {
+        Usuario usuarioExistente = null;
+        EntityTransaction transaction = null;
         try {
-            Thread.sleep(20);
-            if (validarUsuario(usuario)) {
-                usuarios.add(usuario);
-                notificacion = "Usuario agregado";
-            } else {
-                notificacion = "Usuario no agregado";
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario AND u.contrasena = :contrasena";
+
+            usuarioExistente = entityManager
+                    .createQuery(query, entities.Usuario.class)
+                    .setParameter("usuario", nombreUsuario)
+                    .setParameter("contrasena", contrasenia)
+                    .getSingleResult();
+
+            transaction.commit();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive(); // ensure all open transactions are closed
+            }
         }
-
-
-        return notificacion;
+        return usuarioExistente;
     }
+
+
 
     private boolean validarUsuario(Usuario usuario) {
         return comprobarDatosValidos(usuario);
     }
 
     private boolean comprobarDatosValidos(Usuario usuario) {
-        return validarCedulaEcuatoriana(usuario.getCedula()) && (buscarUsuario(usuario.getLogin().getUsuario()) == null)
+        return validarCedulaEcuatoriana(usuario.getCedula()) && (buscarUsuario(usuario.getUsuario(), usuario.getContrasena()) == null)
                 && comprobarNumeroSinLetras(usuario.getTelefono());
     }
 
@@ -76,7 +93,7 @@ public class Gestor_Usuario {
     }
 
 
-    public String eliminarUsuario(Usuario usuarioAEliminar) {
+    /*public String eliminarUsuario(Usuario usuarioAEliminar) {
         String notificacion = "";
         Usuario usuario = buscarUsuario(usuarioAEliminar.getLogin().getUsuario());
         if (usuario != null) {
@@ -86,7 +103,7 @@ public class Gestor_Usuario {
             notificacion = "usuario no existe";
         }
         return notificacion;
-    }
+    }*/
 
     public boolean asignarNivel(Usuario usuario,double nota){
         boolean confirmacion=false;

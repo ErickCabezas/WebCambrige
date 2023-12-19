@@ -1,6 +1,7 @@
 package servlet;
 
-import com.example.webcambrige.Usuario;
+//import com.example.webcambrige.Usuario;
+import entities.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,8 +17,9 @@ public class CalificarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest solicitud, HttpServletResponse respuesta) throws ServletException, IOException {
         String nombreUsuario= solicitud.getParameter("usuario");
+        String contrasena = solicitud.getParameter("contrasena");
         double calificacion= Double.parseDouble(solicitud.getParameter("calificacion")) ;
-        Usuario usuario=LoginServlet.gestor_usuario.buscarUsuario(nombreUsuario);
+        Usuario usuario=LoginServlet.gestor_usuario.buscarUsuario(nombreUsuario, contrasena);
         String notificacion="";
         if(usuario!=null){
             //misma linea en distintos if's

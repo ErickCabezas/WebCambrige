@@ -1,4 +1,4 @@
-<%@ page import="com.example.webcambrige.Usuario" %><%--
+<%@ page import="entities.Usuario" %><%--
   Created by IntelliJ IDEA.
   User: erick cabezas
   Date: 15/12/2023
@@ -22,7 +22,7 @@
         %>
         <p><b>Hola <%=user.getNombre()%>  <%=user.getApellido()%>
         </b></p>
-        <p>User: <%= user.getLogin().getUsuario()%>
+        <p>User: <%= user.getUsuario()%>
         </p>
         <p><b>Seleccione el horarario del examen de ubicación</b></p>
 

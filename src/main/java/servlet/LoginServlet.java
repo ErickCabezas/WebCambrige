@@ -1,7 +1,8 @@
 package servlet;
 
 import com.example.webcambrige.Gestor_Usuario;
-import com.example.webcambrige.Usuario;
+import entities.Usuario;
+//import com.example.webcambrige.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -26,10 +27,10 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest solicitud, HttpServletResponse respuesta) throws ServletException, IOException {
         String nombreUsuario = solicitud.getParameter("user");
         String contrasenia = solicitud.getParameter("contrasenia");
-        Usuario usuario = gestor_usuario.buscarUsuario(nombreUsuario);
-        boolean credencialesValidas = esCredencialesValidas(usuario, nombreUsuario, contrasenia);
+        entities.Usuario usuario = gestor_usuario.buscarUsuario(nombreUsuario, contrasenia);
+        //boolean credencialesValidas = esCredencialesValidas(usuario, nombreUsuario, contrasenia);
         HttpSession miSesion = solicitud.getSession();
-        if (credencialesValidas) {
+        if (usuario != null) {
             miSesion.setAttribute("loginUser", usuario);
             LoginServlet.usuario = usuario;
             respuesta.sendRedirect("cuentaUser.jsp");
@@ -40,7 +41,4 @@ public class LoginServlet extends HttpServlet {
 
     }
 
-    public boolean esCredencialesValidas(Usuario usuario, String nombreUsuario, String contrasenia) {
-        return usuario != null && (usuario.getLogin().validarCredenciales(nombreUsuario, contrasenia));
-    }
 }
