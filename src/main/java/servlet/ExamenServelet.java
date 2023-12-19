@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class ExamenServelet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest solicitud, HttpServletResponse respuesta) throws ServletException, IOException {
-        Usuario usuario=LoginServlet.usuario;
+        /*Usuario usuario=LoginServlet.usuario;
         String horario = solicitud.getParameter("horario");
         ExamenUbicacion examen= CursosYExamenesServlet.examenesUbicacion.examenConHorario(horario);
         usuario.setInscripcion(new InscripcionCurso(usuario,String.valueOf(LocalDate.now())));
@@ -32,7 +32,7 @@ public class ExamenServelet extends HttpServlet {
             textoNotificacion="Guardado "+examen.toString();
             respuesta.sendRedirect("examen.jsp");
         }
-        pasarNotificacion(solicitud,textoNotificacion);
+        pasarNotificacion(solicitud,textoNotificacion);*/
     }
     public void pasarNotificacion(HttpServletRequest solicitud, String notificacion){
         HttpSession miSesion = solicitud.getSession();

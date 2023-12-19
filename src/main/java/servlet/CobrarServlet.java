@@ -18,9 +18,9 @@ public class CobrarServlet extends HttpServlet {
         String nombreUsuario= solicitud.getParameter("usuario");
         String monto= solicitud.getParameter("monto");
         String modoPago= solicitud.getParameter("metodoPago");
-        Usuario usuario=LoginServlet.gestor_usuario.buscarUsuario(nombreUsuario);
+        //Usuario usuario=LoginServlet.gestor_usuario.buscarUsuario(nombreUsuario);
         String notificacion="";
-        if(sePuedeCobrar(usuario, monto)){
+        /*if(sePuedeCobrar(usuario, monto)){
             //misma linea en distintos if's
             if(modoPago.equalsIgnoreCase("0")){
                 notificacion="Seleccione modo de pago";
@@ -29,7 +29,7 @@ public class CobrarServlet extends HttpServlet {
             }
         }else{
             notificacion="no existe el estudiante con ese usuario o el monto es incorrecto";
-        }
+        }*/
         pasarNotificacion(solicitud,notificacion);
         respuesta.sendRedirect("cobrar.jsp");
     }

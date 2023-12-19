@@ -1,4 +1,4 @@
-<%@ page import="com.example.webcambrige.Usuario" %>
+<%@ page import="entities.Usuario" %>
 <%@ page import="com.example.webcambrige.CursoIngles" %>
 <%@ page import="java.util.List" %>
 <%@ page import="servlet.CursosYExamenesServlet" %><%--
@@ -22,7 +22,7 @@
     %>
     <p><b>Hola <%=user.getNombre()%>  <%=user.getApellido()%>
     </b></p>
-    <p>User: <%= user.getLogin().getUsuario()%></p>
+    <p>User: <%= user.getUsuario()%></p>
     <p>Nivel del curso: <%= user.getNivel()%></p>
 
     <%

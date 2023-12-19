@@ -1,7 +1,9 @@
 package servlet;
 
 
-import com.example.webcambrige.Usuario;
+//import com.example.webcambrige.Usuario;
+import com.example.webcambrige.Gestor_Usuario;
+import entities.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,10 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-
 @WebServlet(name="RegistroServlet", urlPatterns = {"/RegistroServlet"})
 public class RegistroServlet extends HttpServlet {
 
+    private Gestor_Usuario gestorUsuario = new Gestor_Usuario();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int opcion=Integer.parseInt(req.getParameter("opcRegistro"));
@@ -34,12 +36,14 @@ public class RegistroServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest solicitud, HttpServletResponse respuesta) throws ServletException, IOException {
+        Usuario usuario = RegistrarUsuario(solicitud);
         HttpSession misesion = solicitud.getSession();
-        misesion.setAttribute("registro", RegistrarUsuario(solicitud));
+        misesion.setAttribute("registro", usuario);
+        gestorUsuario.agregarUsuario(usuario);
         respuesta.sendRedirect("registro.jsp");
     }
 
-    public String RegistrarUsuario(HttpServletRequest solicitud) {
+    public Usuario RegistrarUsuario(HttpServletRequest solicitud) {
 
         String nombre = solicitud.getParameter("nombre");
         String apellido = solicitud.getParameter("apellido");
@@ -50,7 +54,6 @@ public class RegistroServlet extends HttpServlet {
         String usuario = solicitud.getParameter("user");
         String contrasenia = solicitud.getParameter("contrasenia");
 
-        return LoginServlet.gestor_usuario.agregarUsuario(
-                new Usuario(nombre, apellido, cedula, correo, modo, telefono, usuario, contrasenia));
+        return new Usuario(nombre, apellido, cedula, correo, telefono, modo , 0, usuario, contrasenia);
     }
 }

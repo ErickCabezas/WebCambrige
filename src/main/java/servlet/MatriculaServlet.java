@@ -1,7 +1,10 @@
 package servlet;
 
-import com.example.webcambrige.CursoIngles;
-import com.example.webcambrige.InscripcionCurso;
+//import com.example.webcambrige.CursoIngles;
+//import com.example.webcambrige.InscripcionCurso;
+import entities.Cursoingles;
+import entities.Inscripcioncurso;
+import entities.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +14,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import com.example.webcambrige.Usuario;
 
 @WebServlet(name="MatriculaServlet", urlPatterns = {"/MatriculaServlet"})
 public class MatriculaServlet extends HttpServlet {
@@ -32,7 +34,7 @@ public class MatriculaServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest solicitud, HttpServletResponse respuesta) throws ServletException, IOException {
-        HttpSession miSesion= solicitud.getSession();
+        /*HttpSession miSesion= solicitud.getSession();
         Usuario usuario=LoginServlet.usuario;
         String horario = solicitud.getParameter("horario");
         CursoIngles curso =CursosYExamenesServlet.cursos.CursosConHorario(horario, usuario.getNivel());
@@ -48,7 +50,7 @@ public class MatriculaServlet extends HttpServlet {
             }
         }
         miSesion.setAttribute("noti", textoNotificacion);
-        respuesta.sendRedirect("matricula.jsp");
+        respuesta.sendRedirect("matricula.jsp");*/
     }
 
     public String confirmacionInscripcion(Usuario usuario) {
@@ -57,8 +59,8 @@ public class MatriculaServlet extends HttpServlet {
               usuario.getApellido()
                 +"\nRealice el pago del curso"
                 +"\nen las oficinas de CAMBRIGE "
-                +"\npara finalizar su inscripción"
-                +"\ncosto: $"+usuario.getInscripcion().getCurso().getCosto();
+                +"\npara finalizar su inscripción";
+                //+"\ncosto: $"+usuario.getInscripcion().getCurso().getCosto();
         return textoNotificacion;
     }
 
