@@ -9,14 +9,14 @@
 <html>
 <head>
     <title>Cuenta Cambrige</title>
-    <br>
     <link rel="stylesheet" href="hojaDeEstilos/stylesCuentaUsuario.css">
 </head>
 <body>
 
-
 <div class="contenedor">
-    <h1>BIENVENIDO A CAMBRIGE</h1>
+    <div class="titulo">
+        <h1>BIENVENIDO A CAMBRIGE</h1>
+    </div>
     <%
         Usuario usuario = (Usuario) request.getSession().getAttribute("loginUser");
     %>
