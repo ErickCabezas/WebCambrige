@@ -3,52 +3,105 @@ package com.example.webcambrige;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.ConexionBD;
+import entities.Examenubicacion;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+
 public class Gestor_ExamenUbicacion {
-    private List<ExamenUbicacion> examenes;
+    private List<Examenubicacion> examenes;
 
     public Gestor_ExamenUbicacion() {
         this.examenes = new ArrayList<>();
-        examenes.add(new ExamenUbicacion(1,"18/12/2023","7-9"));
-        examenes.add(new ExamenUbicacion(2,"18/12/2023","11-13"));
-        examenes.add(new ExamenUbicacion(3,"18/12/2023","14-16"));
-        examenes.add(new ExamenUbicacion(4,"18/12/2023","9-11"));
     }
 
-    public List<ExamenUbicacion> getExamenes() {
+    public List<Examenubicacion> getExamenes() {
         return examenes;
     }
 
-    public ExamenUbicacion buscarExamen(int idexamen) {
-        for (ExamenUbicacion examen : examenes) {
-            if (examen.getId()==idexamen) {
-                return examen;
+    public Examenubicacion buscarExamen(int cursoId) {
+        Examenubicacion examenExistente = null;
+        EntityTransaction transaction = null;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String query = "SELECT u FROM Examenubicacion u WHERE u.id = :id";
+
+            examenExistente = entityManager
+                    .createQuery(query, entities.Examenubicacion.class)
+                    .setParameter("id", cursoId)
+                    .getSingleResult();
+
+            transaction.commit();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive(); // ensure all open transactions are closed
             }
         }
-        return null;
+        return examenExistente;
     }
 
-    public String agregarExamen(ExamenUbicacion examenUbicacion) {
-        String notificacion = "";
-        if (examenes.add(examenUbicacion)) {
-            notificacion = "examen agregado";
-        } else {
-            notificacion = "examen no agregado";
+    public void agregarExamen(Examenubicacion examen){
+        EntityTransaction transaction = null;
+        try{
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(examen);
+            transaction.commit();
+        }catch(Exception e){
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Error durante la transaccion");
         }
-        return notificacion;
     }
 
-    public ExamenUbicacion examenConHorario(String horario){
-        for(ExamenUbicacion examen: examenes){
-            if(examen.getHorario().equalsIgnoreCase(horario)){
-                return examen;
+    public Examenubicacion buscarExamenporHorario(String horario){
+        Examenubicacion examenExistente = null;
+        EntityTransaction transaction = null;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String query = "SELECT u FROM Examenubicacion u WHERE u.horario = :horario";
+
+            examenExistente = entityManager
+                    .createQuery(query, entities.Examenubicacion.class)
+                    .setParameter("horario", horario)
+                    .getSingleResult();
+
+            transaction.commit();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive(); // ensure all open transactions are closed
             }
         }
-        return null;
+        return examenExistente;
     }
 
     public String eliminarExamen(int id) {
         String notificacion = "";
-        ExamenUbicacion examen = buscarExamen(id);
+        Examenubicacion examen = buscarExamen(id);
         if (examen != null) {
             examenes.remove(examen);
             notificacion = "examen eliminado";

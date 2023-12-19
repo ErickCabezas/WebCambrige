@@ -43,6 +43,15 @@ public class Examenubicacion {
         this.fechaExamen = fechaExamen;
     }
 
+    public Examenubicacion(String horario, Date fechaExamen) {
+        this.horario = horario;
+        this.fechaExamen = fechaExamen;
+    }
+
+    public Examenubicacion(){
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

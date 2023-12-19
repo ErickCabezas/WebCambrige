@@ -23,9 +23,9 @@ public class Inscripcioncurso {
     private int examenUbicacionId;
     @Basic
     @Column(name = "pagado", nullable = false)
-    private byte pagado;
+    private boolean pagado;
     @Basic
-    @Column(name = "cursoIngles", nullable = false, insertable=false, updatable=false)
+    @Column(name = "cursoIngles", insertable=false, updatable=false)
     private int cursoIngles;
     @ManyToOne
     @JoinColumn(name = "usuarioId", referencedColumnName = "usuarioId", nullable = false)
@@ -34,8 +34,20 @@ public class Inscripcioncurso {
     @JoinColumn(name = "examenUbicacionId", referencedColumnName = "id", nullable = false)
     private Examenubicacion examenubicacionByExamenUbicacionId;
     @ManyToOne
-    @JoinColumn(name = "cursoIngles", referencedColumnName = "cursoInglesId", nullable = false)
+    @JoinColumn(name = "cursoIngles", referencedColumnName = "cursoInglesId")
     private Cursoingles cursoinglesByCursoIngles;
+
+    public Inscripcioncurso(int usuarioId, Date fechaInscripcion, int examenUbicacionId, boolean pagado){
+        this.usuarioId = usuarioId;
+        this.fechaInscripcion = fechaInscripcion;
+        this.examenUbicacionId = examenUbicacionId;
+        this.pagado = pagado;
+    }
+
+    public Inscripcioncurso(){
+
+    }
+
 
     public int getId() {
         return id;
@@ -69,11 +81,11 @@ public class Inscripcioncurso {
         this.examenUbicacionId = examenUbicacionId;
     }
 
-    public byte getPagado() {
+    public boolean getPagado() {
         return pagado;
     }
 
-    public void setPagado(byte pagado) {
+    public void setPagado(boolean pagado) {
         this.pagado = pagado;
     }
 
@@ -106,10 +118,12 @@ public class Inscripcioncurso {
     @Override
     public int hashCode() {
         int result = id;
+        boolean miBooleano = pagado;
+        int miEntero = miBooleano ? 1 : 0;
         result = 31 * result + usuarioId;
         result = 31 * result + (fechaInscripcion != null ? fechaInscripcion.hashCode() : 0);
         result = 31 * result + examenUbicacionId;
-        result = 31 * result + (int) pagado;
+        result = 31 * result + miEntero;
         result = 31 * result + cursoIngles;
         return result;
     }
@@ -160,6 +174,23 @@ public class Inscripcioncurso {
             e.printStackTrace();
             return null;
 
+        }
+    }
+
+    public static void agregarInscripcion(Inscripcioncurso inscripcioncurso){
+        EntityTransaction transaction = null;
+        try{
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(inscripcioncurso);
+            transaction.commit();
+        }catch(Exception e){
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Error durante la transaccion");
         }
     }
 

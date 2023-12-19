@@ -31,6 +31,19 @@ public class Cursoingles {
     @OneToMany(mappedBy = "cursoinglesByCursoIngles")
     private Collection<Inscripcioncurso> inscripcioncursosByCursoInglesId;
 
+    public Cursoingles(Date fechaInicio, Date fechaFin, String horarioCurso, int nivel, int aula, double costo) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.horarioCurso = horarioCurso;
+        this.nivel = nivel;
+        this.aula = aula;
+        this.costo = costo;
+    }
+
+    public Cursoingles(){
+
+    }
+
     public int getCursoInglesId() {
         return cursoInglesId;
     }

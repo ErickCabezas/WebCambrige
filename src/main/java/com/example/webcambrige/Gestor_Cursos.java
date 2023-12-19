@@ -3,44 +3,26 @@ package com.example.webcambrige;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.ConexionBD;
+import entities.Cursoingles;
+import entities.Usuario;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+
 public class Gestor_Cursos {
-    private List<CursoIngles> cursos;
+    private List<Cursoingles> cursos;
 
     public Gestor_Cursos() {
         this.cursos = new ArrayList<>();
-        cursos.add(new CursoIngles(1, 103, "3/01/2024", "3/03/2024", "11-13", 4, 300));
-        cursos.add(new CursoIngles(2, 104, "3/01/2024", "3/03/2024", "11-13", 4, 300));
-        cursos.add(new CursoIngles(3, 105, "3/01/2024", "3/03/2024", "11-13", 5, 300));
-        cursos.add(new CursoIngles(4, 106, "3/01/2024", "3/03/2024", "7-9", 4, 300));
-        cursos.add(new CursoIngles(5, 107, "3/01/2024", "3/03/2024", "11-13", 5, 300));
-        cursos.add(new CursoIngles(6, 108, "3/01/2024", "3/03/2024", "18-20", 1, 300));
     }
 
-    public List<CursoIngles> getCursos() {
+    public List<Cursoingles> getCursos() {
         return cursos;
     }
 
-    public CursoIngles buscarCurso(int idCurso) {
-        for (CursoIngles curso : cursos) {
-            if (curso.getId()==idCurso) {
-                return curso;
-            }
-        }
-        return null;
-    }
-
-    public String agregarCurso(CursoIngles curso) {
-        String notificacion = "";
-        if (cursos.add(curso)) {
-            notificacion = "curso agregado";
-        } else {
-            notificacion = "curso no agregado";
-        }
-        return notificacion;
-    }
-
-    public CursoIngles CursosConHorario(String horario, int nivel){
-        for(CursoIngles curso: cursos){
+    public Cursoingles CursosConHorario(String horario, int nivel){
+        for(Cursoingles curso: cursos){
             if(curso.getNivel()==nivel
                     &&curso.getHorarioCurso().equalsIgnoreCase(horario)){
                 return curso;
@@ -50,8 +32,9 @@ public class Gestor_Cursos {
     }
 
     public String eliminarCurso(int id) {
+        //MODIFICAR: POR AHORA ELIMINA DE LA LISTA PERO NO DE LA BASE DE DATOS
         String notificacion = "";
-        CursoIngles curso = buscarCurso(id);
+        Cursoingles curso = buscarCurso(id);
         if (curso != null) {
             cursos.remove(curso);
             notificacion = "curso eliminado";
@@ -59,6 +42,54 @@ public class Gestor_Cursos {
             notificacion = "curso no existe";
         }
         return notificacion;
+    }
+
+    public void agregarCurso(Cursoingles curso){
+        EntityTransaction transaction = null;
+        try{
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(curso);
+            transaction.commit();
+        }catch(Exception e){
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Error durante la transaccion");
+        }
+    }
+
+    public Cursoingles buscarCurso(int cursoId) {
+        Cursoingles cursoExistente = null;
+        EntityTransaction transaction = null;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String query = "SELECT u FROM Cursoingles u WHERE u.id = :id";
+
+            cursoExistente = entityManager
+                    .createQuery(query, entities.Cursoingles.class)
+                    .setParameter("id", cursoId)
+                    .getSingleResult();
+
+            transaction.commit();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive(); // ensure all open transactions are closed
+            }
+        }
+        return cursoExistente;
     }
 
 
