@@ -1,0 +1,43 @@
+
+body {
+    font-family: sans-serif;
+    background-color: #f2f2f2;
+    background-image: url("../imagenes/Screenshot_5.jpg");
+    background-size: cover;
+}
+
+.contenedor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 15px;
+    align-items: center;
+}
+
+.contenedor h1 {
+    text-align: center;
+}
+
+#titulo {
+    color: white;
+}
+
+.contenedor p {
+    text-align: center;
+    color: white;
+}
+
+
+.contenedorBotones {
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
+    justify-items: center;
+    margin-top: 20px;
+    margin-left: 45%;
+}
+

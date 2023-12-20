@@ -1,0 +1,87 @@
+
+body {
+    font-family: sans-serif;
+    background-color: #f2f2f2;
+    background-image: url("../imagenes/cursos.jpg");
+}
+
+
+.contenedor {
+    width: 80%;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.containerPrincipal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.columna izquierda {
+    width: 40%;
+}
+
+.columna derecha {
+    width: 40%;
+}
+
+
+p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contenedorBotones Button {
+
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contenedorBotones button :hover {
+    background-color: #0069d9;
+}
+
+.profesor {
+    text-align: center;
+}
+
+.inscripcion {
+    text-align: center;
+}
+
+.contenedorBotones {
+
+    margin-top: 25px;
+    left: 45%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
