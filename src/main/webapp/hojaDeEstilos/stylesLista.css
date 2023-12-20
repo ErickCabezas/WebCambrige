@@ -54,6 +54,10 @@ h3{
     align-items: center;
 }
 
+p{
+    color: #fff;
+}
+
 #Lista div{
     color: #fff;
     padding-left: 2%;
