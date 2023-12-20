@@ -1,4 +1,4 @@
-<%@ page import="com.example.webcambrige.CursoIngles" %>
+<%@ page import="entities.Cursoingles" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: erick cabezas
@@ -22,9 +22,9 @@
     </div>
 <div id="Cursos">
     <%
-        List<CursoIngles> cursos = (List) request.getSession().getAttribute("listaCursos");
+        List<Cursoingles> cursos = (List) request.getSession().getAttribute("listaCursos");
         int cont=1;
-        for(CursoIngles curso: cursos){
+        for(Cursoingles curso: cursos){
     %>
     <div class="tm-list-item">
         <div class="tm-black-bg tm-list-item-text">
