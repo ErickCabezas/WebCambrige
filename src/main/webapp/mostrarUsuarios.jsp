@@ -27,7 +27,6 @@
         for(Usuario user: listaUsuarios){
     %>
     <div class="tm-list-item">
-        <img src="imagenes/user.png" alt="Image" class="tm-list-item-img">
         <div class="tm-black-bg tm-list-item-text">
             <h3 class="tm-list-item-name">Usuario N° <%=cont%><span class="tm-list-item-price"><%= user.getModoUsuario()%></span></h3>
             <p class="tm-list-item-description">Info: <%= user.toString()%></p>
