@@ -2,6 +2,8 @@ package com.example.webcambrige;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entities.Cursoingles;
 import entities.Usuario;
 
 import entities.ConexionBD;
@@ -234,4 +236,31 @@ public class Gestor_Usuario {
     }
 
 
+    public List<Usuario> listarUsuarios() {
+        List<Usuario> cursos = new ArrayList<>();
+        EntityTransaction transaction = null;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String query = "SELECT u FROM Usuario u";
+
+            cursos = entityManager
+                    .createQuery(query, Usuario.class)
+                    .getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive();
+            }
+        }
+        return cursos;
+    }
 }

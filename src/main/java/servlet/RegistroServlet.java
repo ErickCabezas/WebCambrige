@@ -22,7 +22,7 @@ public class RegistroServlet extends HttpServlet {
         switch (opcion){
             case 1:
                 HttpSession misesion = req.getSession();
-                misesion.setAttribute("listaUsuarios", LoginServlet.gestor_usuario.getUsuarios());
+                misesion.setAttribute("listaUsuarios", LoginServlet.gestor_usuario.listarUsuarios());
                 resp.sendRedirect("mostrarUsuarios.jsp");
                 break;
             case 2:

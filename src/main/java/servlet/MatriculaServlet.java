@@ -42,7 +42,6 @@ public class MatriculaServlet extends HttpServlet {
         String horario = solicitud.getParameter("horario");
         Cursoingles curso = gestorCursos.buscarCursoPorHorario(horario);
         Inscripcioncurso inscripcioncurso = buscarInscripcionPorUsuario(usuario.getUsuarioId());
-        //usuario.setInscripcion(new Inscripcioncurso(usuario,String.valueOf(LocalDate.now())));
         String textoNotificacion="";
         if(horario.equalsIgnoreCase("0") || curso==null){
             textoNotificacion="No hay cursos disponibles en ese horario seleccione otro";
