@@ -20,10 +20,10 @@ public class Gestor_Cursos {
         return cursos;
     }
 
-    public Cursoingles CursosConHorario(String horario, int nivel){
-        for(Cursoingles curso: cursos){
-            if(curso.getNivel()==nivel
-                    &&curso.getHorarioCurso().equalsIgnoreCase(horario)){
+    public Cursoingles CursosConHorario(String horario, int nivel) {
+        for (Cursoingles curso : cursos) {
+            if (curso.getNivel() == nivel
+                    && curso.getHorarioCurso().equalsIgnoreCase(horario)) {
                 return curso;
             }
         }
@@ -43,16 +43,16 @@ public class Gestor_Cursos {
         return notificacion;
     }
 
-    public void agregarCurso(Cursoingles curso){
+    public void agregarCurso(Cursoingles curso) {
         EntityTransaction transaction = null;
-        try{
+        try {
             EntityManager entityManager = ConexionBD.entityManager;
             transaction = entityManager.getTransaction();
             transaction.begin();
             entityManager.persist(curso);
             transaction.commit();
-        }catch(Exception e){
-            if(transaction != null && transaction.isActive()){
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
