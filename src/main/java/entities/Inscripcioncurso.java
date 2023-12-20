@@ -153,17 +153,26 @@ public class Inscripcioncurso {
         this.cursoinglesByCursoIngles = cursoinglesByCursoIngles;
     }
 
-    public static Inscripcioncurso buscarInscripcionPorUsuario(int usuarioId){
+    public static Inscripcioncurso buscarInscripcionPorUsuario(int usuarioId) {
         try {
-            String query = "SELECT i FROM Inscripcioncurso i WHERE i.usuarioId = :usuarioId";
+            String query = "SELECT i.id, i.usuarioId, i.fechaInscripcion, i.examenUbicacionId, i.pagado FROM Inscripcioncurso i WHERE i.usuarioId = :usuarioId";
 
             // Utiliza directamente los parámetros en la consulta
-            Inscripcioncurso inscripcionCurso = entityManager
-                    .createQuery(query, entities.Inscripcioncurso.class)
+            Object[] result = (Object[]) entityManager
+                    .createQuery(query)
                     .setParameter("usuarioId", usuarioId)
                     .getSingleResult();
 
-            // No es necesario verificar si usuarioExistente != null, ya que getSingleResult() lanzará una excepción si no se encuentra ningún resultado
+
+
+            // Crea una instancia de Inscripcioncurso y establece los valores manualmente
+            Inscripcioncurso inscripcionCurso = new Inscripcioncurso();
+            inscripcionCurso.setId((int) result[0]); // Suponiendo que el ID es de tipo Long
+            inscripcionCurso.setUsuarioId((int)result[1]);
+            inscripcionCurso.setFechaInscripcion((Date) result[2]); // Suponiendo que la fecha es de tipo Date
+            inscripcionCurso.setExamenUbicacionId((int)result[3]);
+            inscripcionCurso.setPagado((boolean) result[4]);
+
             return inscripcionCurso;
 
         } catch (NoResultException e) {
@@ -174,9 +183,9 @@ public class Inscripcioncurso {
             // Maneja otras excepciones de manera específica o regístralas
             e.printStackTrace();
             return null;
-
         }
     }
+
 
     public static void agregarInscripcion(Inscripcioncurso inscripcioncurso){
         EntityTransaction transaction = null;
@@ -194,5 +203,47 @@ public class Inscripcioncurso {
             throw new RuntimeException("Error durante la transaccion");
         }
     }
+
+    public boolean agregarCurso(int inscripcionId, int cursoinglesId) {
+        boolean confirmacion = false;
+        EntityTransaction transaction = null;
+
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            Inscripcioncurso inscripcionExistente = entityManager.find(Inscripcioncurso.class, inscripcionId);
+
+            if (inscripcionExistente != null) {
+                // Verificar la existencia del curso antes de asignarlo
+                Cursoingles curso = entityManager.find(Cursoingles.class, cursoinglesId);
+
+                if (curso != null) {
+                    inscripcionExistente.setCursoIngles(cursoinglesId);
+                    confirmacion = true;
+                } else {
+                    System.out.println("No se encontró el curso con ID: " + cursoinglesId);
+                }
+            } else {
+                System.out.println("No se encontró la inscripción con ID: " + inscripcionId);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace(); // Considera manejar la excepción de manera más adecuada
+        } finally {
+            // Cerrar la transacción adecuadamente
+            if (transaction != null && transaction.isActive()) {
+                transaction.commit();
+            }
+        }
+
+        return confirmacion;
+    }
+
 
 }

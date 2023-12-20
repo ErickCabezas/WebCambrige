@@ -5,6 +5,7 @@ import java.util.List;
 
 import entities.ConexionBD;
 import entities.Cursoingles;
+import entities.Examenubicacion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
@@ -20,14 +21,35 @@ public class Gestor_Cursos {
         return cursos;
     }
 
-    public Cursoingles CursosConHorario(String horario, int nivel){
-        for(Cursoingles curso: cursos){
-            if(curso.getNivel()==nivel
-                    &&curso.getHorarioCurso().equalsIgnoreCase(horario)){
-                return curso;
+    public Cursoingles buscarCursoPorHorario(String horario){
+        Cursoingles cursoExistente = null;
+        EntityTransaction transaction = null;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String query = "SELECT u FROM Cursoingles u WHERE u.horarioCurso = :horario";
+
+            cursoExistente = entityManager
+                    .createQuery(query, entities.Cursoingles.class)
+                    .setParameter("horario", horario)
+                    .getSingleResult();
+
+            transaction.commit();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive(); // ensure all open transactions are closed
             }
         }
-        return null;
+        return cursoExistente;
     }
 
     public String eliminarCurso(int id) {
