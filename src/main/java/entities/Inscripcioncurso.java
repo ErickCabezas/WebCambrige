@@ -26,7 +26,7 @@ public class Inscripcioncurso {
     private boolean pagado;
     @Basic
     @Column(name = "cursoIngles", nullable = true, insertable=false, updatable=false)
-    private int cursoIngles;
+    private Integer cursoIngles;
     @ManyToOne
     @JoinColumn(name = "usuarioId", referencedColumnName = "usuarioId", nullable = false)
     private Usuario usuarioByUsuarioId;
@@ -204,7 +204,7 @@ public class Inscripcioncurso {
         }
     }
 
-    public boolean agregarCurso(int inscripcionId, int cursoinglesId) {
+    public static boolean agregarCurso(int inscripcionId, int cursoinglesId) {
         boolean confirmacion = false;
         EntityTransaction transaction = null;
 
@@ -221,6 +221,7 @@ public class Inscripcioncurso {
 
                 if (curso != null) {
                     inscripcionExistente.setCursoIngles(cursoinglesId);
+                    inscripcionExistente.setCursoinglesByCursoIngles(curso);
                     confirmacion = true;
                 } else {
                     System.out.println("No se encontró el curso con ID: " + cursoinglesId);
@@ -234,9 +235,8 @@ public class Inscripcioncurso {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            e.printStackTrace(); // Considera manejar la excepción de manera más adecuada
+            e.printStackTrace();
         } finally {
-            // Cerrar la transacción adecuadamente
             if (transaction != null && transaction.isActive()) {
                 transaction.commit();
             }

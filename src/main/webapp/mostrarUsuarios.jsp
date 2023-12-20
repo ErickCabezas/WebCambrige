@@ -1,4 +1,4 @@
-<%@ page import="com.example.webcambrige.Usuario" %>
+<%@ page import="entities.Usuario" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: erick cabezas
@@ -30,7 +30,7 @@
         <img src="imagenes/user.png" alt="Image" class="tm-list-item-img">
         <div class="tm-black-bg tm-list-item-text">
             <h3 class="tm-list-item-name">Usuario N° <%=cont%><span class="tm-list-item-price"><%= user.getModoUsuario()%></span></h3>
-            <p class="tm-list-item-description">Info: <%= user.getLogin().getUsuario()%></p>
+            <p class="tm-list-item-description">Info: <%= user.toString()%></p>
             <%cont+=1;%>
         </div>
     </div>
