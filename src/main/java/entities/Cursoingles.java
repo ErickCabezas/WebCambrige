@@ -143,16 +143,13 @@ public class Cursoingles {
 
     @Override
     public String toString() {
-        return "Cursoingles{" +
-                "cursoInglesId=" + cursoInglesId +
-                ", fechaInicio=" + fechaInicio +
-                ", fechaFin=" + fechaFin +
-                ", horarioCurso='" + horarioCurso + '\'' +
-                ", nivel=" + nivel +
-                ", aula=" + aula +
-                ", costo=" + costo +
-                ", inscripcioncursosByCursoInglesId=" + inscripcioncursosByCursoInglesId +
-                '}';
+        return "cursoInglesId = " + cursoInglesId + "\n" +
+                ", fechaInicio = " + fechaInicio + "\n" +
+                ", fechaFin = " + fechaFin + "\n" +
+                ", horarioCurso = " + horarioCurso + "\n" +
+                ", nivel = " + nivel + "\n" +
+                ", aula = " + aula + "\n" +
+                ", costo = " + costo + "\n";
     }
 
     public void agregarCurso(Cursoingles cursoingles){

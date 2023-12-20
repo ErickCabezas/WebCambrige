@@ -85,11 +85,9 @@ public class Examenubicacion {
 
     @Override
     public String toString() {
-        return "Examenubicacion{" +
-                "id=" + id +
-                ", horario='" + horario + '\'' +
-                ", fechaExamen=" + fechaExamen +
-                '}';
+        return "id=" + id + "\n" +
+                ", horario = " + horario + "\n" +
+                ", fechaExamen = " + fechaExamen + "\n";
     }
 
     public static void agregarExamen(Examenubicacion examenubicacion){
