@@ -1,0 +1,50 @@
+body{
+    margin: 0 auto;
+    display: flex;
+    justify-content: start;
+    gap: 25%;
+}
+
+.Menu form{
+    width: 200px;
+    height: 100%;
+    font-family: sans-serif;
+    background-color: #f2f2f2;
+    flex-flow: column wrap;
+    justify-content: center;
+}
+
+input{
+    border-radius: 10px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+button{
+    background-color: #6C3483; color: #fff;
+    font-size: 16px; border-radius: 15px;
+    border: 0px; margin-left: 10%;
+}
+
+button:hover{
+    background-color: #fff; color: #000;
+    cursor: pointer;
+}
+
+form button{
+    width: 160px;
+    height: 50px;
+    margin-top: 10px;
+}
+
+body{
+    font-family: sans-serif;
+    background-color: #ddd;
+}
+
+.txtAgregado{
+    position:absolute;
+    bottom: 30%;
+    left: 2%;
+    color: #6C3483;
+}
