@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Cursos y examenes</title>
+    <link rel="stylesheet" type="text/css" href="hojaDeEstilos/stylesCursosYExamenes.css"/>
     <script>
         function mostrarFormulario(opcion) {
             // Ocultar todos los formularios
