@@ -140,4 +140,21 @@ public class Cursoingles {
     public void setInscripcioncursosByCursoInglesId(Collection<Inscripcioncurso> inscripcioncursosByCursoInglesId) {
         this.inscripcioncursosByCursoInglesId = inscripcioncursosByCursoInglesId;
     }
+
+    public void agregarCurso(Cursoingles cursoingles){
+        EntityTransaction transaction = null;
+        try{
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(cursoingles);
+            transaction.commit();
+        }catch(Exception e){
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Error durante la transaccion");
+        }
+    }
 }
