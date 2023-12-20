@@ -3,37 +3,47 @@ body {
     font-family: sans-serif;
     background-color: #f2f2f2;
     background-image: url("../imagenes/cursos.jpg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
 .contenedor {
-    width: 80%;
-    margin: 0 auto;
-    padding: 30px;
+    height: 75%;
+    width: 75%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     opacity: 0.9;
 }
 
-h1 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.containerPrincipal {
+.contenedor .titulo{
+    height: 20%;
+    padding-top: 20px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
-.columna izquierda {
-    width: 40%;
+.contenedor .titulo h1{
+    font-family: "Arial monospaced for SAP";
+    font-size: 24px;
 }
 
-.columna derecha {
-    width: 40%;
+
+.contenedor .containerPrincipal {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 50%;
+    width: 100%;
+}
+
+.contenedor .containerPrincipal .columna izquierda {
+    width: 50%;
+}
+
+.contenedor .containerPrincipal .columna derecha {
+    width: 50%;
 }
 
 
@@ -50,13 +60,11 @@ p {
 
 .input {
     width: 100%;
-    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .contenedorBotones Button {
-
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -78,10 +86,9 @@ p {
 }
 
 .contenedorBotones {
-
-    margin-top: 25px;
-    left: 45%;
     justify-content: center;
     text-align: center;
-    align-items: center;
+    height: 15%;
+    width: 100%;
+    padding: 0px 0px 100px;
 }
