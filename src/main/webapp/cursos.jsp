@@ -13,12 +13,13 @@
     <link rel="stylesheet" type="text/css" href="hojaDeEstilos/stylesLista.css"/>
 </head>
 <body>
-<h1>Lista de cursos registrados</h1>
-<div class="contenedorBotones">
-    <form action="CursosYExamenesServlet" method="GET">
-        <button type="submit" name="operacion" value="4"> Regresar</button>
-    </form>
-</div>
+<div id="cuadro">
+    <div id="cabeza">
+        <h1>Lista de cursos registrados</h1>
+        <form action="CursosYExamenesServlet" method="GET">
+            <button type="submit" name="operacion" value="4"> Regresar</button>
+        </form>
+    </div>
 <div id="Cursos">
     <%
         List<CursoIngles> cursos = (List) request.getSession().getAttribute("listaCursos");
@@ -32,8 +33,8 @@
             <%cont+=1;%>
         </div>
     </div>
-</div>
 <%}%>
-
+</div>
+</div>
 </body>
 </html>
