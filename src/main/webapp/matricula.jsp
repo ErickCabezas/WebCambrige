@@ -1,5 +1,5 @@
 <%@ page import="entities.Usuario" %>
-<%@ page import="com.example.webcambrige.CursoIngles" %>
+<%@ page import="entities.Cursoingles" %>
 <%@ page import="java.util.List" %>
 <%@ page import="servlet.CursosYExamenesServlet" %><%--
   Created by IntelliJ IDEA.

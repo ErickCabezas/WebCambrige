@@ -12,15 +12,13 @@ import java.util.List;
 import static entities.Inscripcioncurso.agregarInscripcion;
 import static entities.Examenubicacion.agregarExamen;
 import static entities.Inscripcioncurso.buscarInscripcionPorUsuario;
+import static entities.Inscripcioncurso.agregarCurso;
 
 public class main {
 
 
     public static void main(String[] args) {
-        Gestor_ExamenUbicacion gestorExamenUbicacion = new Gestor_ExamenUbicacion();
-        List<Examenubicacion> lista = gestorExamenUbicacion.listarExamenes();
-        for(Examenubicacion examen: gestorExamenUbicacion.listarExamenes()) {
-            examen.toString();
-        }
+        boolean b = agregarCurso(1, 1);
+        System.out.println(b);
     }
 }

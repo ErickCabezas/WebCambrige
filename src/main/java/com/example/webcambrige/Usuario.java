@@ -68,4 +68,19 @@ public class Usuario {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", cedula='" + cedula + '\'' +
+                ", correo='" + correo + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", modoUsuario='" + modoUsuario + '\'' +
+                ", login=" + login +
+                ", inscripcion=" + inscripcion +
+                ", nivel=" + nivel +
+                '}';
+    }
 }
