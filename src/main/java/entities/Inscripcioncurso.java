@@ -25,7 +25,7 @@ public class Inscripcioncurso {
     @Column(name = "pagado", nullable = false)
     private boolean pagado;
     @Basic
-    @Column(name = "cursoIngles", insertable=false, updatable=false)
+    @Column(name = "cursoIngles", nullable = true, insertable=false, updatable=false)
     private int cursoIngles;
     @ManyToOne
     @JoinColumn(name = "usuarioId", referencedColumnName = "usuarioId", nullable = false)
@@ -37,17 +37,18 @@ public class Inscripcioncurso {
     @JoinColumn(name = "cursoIngles", referencedColumnName = "cursoInglesId")
     private Cursoingles cursoinglesByCursoIngles;
 
-    public Inscripcioncurso(int usuarioId, Date fechaInscripcion, int examenUbicacionId, boolean pagado){
+    public Inscripcioncurso(int usuarioId, Usuario usuarioByUsuarioId, Date fechaInscripcion, int examenUbicacionId, Examenubicacion examenubicacionByExamenUbicacionId , boolean pagado){
         this.usuarioId = usuarioId;
+        this.usuarioByUsuarioId = usuarioByUsuarioId;
         this.fechaInscripcion = fechaInscripcion;
         this.examenUbicacionId = examenUbicacionId;
+        this.examenubicacionByExamenUbicacionId = examenubicacionByExamenUbicacionId;
         this.pagado = pagado;
     }
 
     public Inscripcioncurso(){
 
     }
-
 
     public int getId() {
         return id;

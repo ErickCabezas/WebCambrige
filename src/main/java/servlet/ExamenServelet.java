@@ -36,7 +36,7 @@ public class ExamenServelet extends HttpServlet {
             textoNotificacion="seleccione otro horario";
             respuesta.sendRedirect("examen.jsp");
         }else{
-            Inscripcioncurso inscripcioncurso = new Inscripcioncurso(usuario.getUsuarioId(), fechaActual, examen.getId(), false);
+            Inscripcioncurso inscripcioncurso = new Inscripcioncurso(usuario.getUsuarioId(), usuario, fechaActual, examen.getId(), examen, false);
             //usuario.getInscripcion().setExamenUbicacion(examen);
             agregarInscripcion(inscripcioncurso);
             textoNotificacion="Guardado "+examen.toString();

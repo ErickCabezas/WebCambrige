@@ -2,12 +2,12 @@ package com.example.webcambrige;
 
 import java.util.ArrayList;
 import java.util.List;
+import entities.Usuario;
 
 import entities.ConexionBD;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import static entities.ConexionBD.entityManager;
-import entities.Usuario;
+
 import jakarta.persistence.NoResultException;
 
 public class Gestor_Usuario {
@@ -70,7 +70,36 @@ public class Gestor_Usuario {
         return usuarioExistente;
     }
 
+    public Usuario buscarUsuarioPorId(String usuarioId) {
+        Usuario usuarioExistente = null;
+        EntityTransaction transaction = null;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
 
+            String query = "SELECT u FROM Usuario u WHERE u.usuarioId = :usuarioId";
+
+            usuarioExistente = entityManager
+                    .createQuery(query, entities.Usuario.class)
+                    .setParameter("usuarioId", usuarioId)
+                    .getSingleResult();
+
+            transaction.commit();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive(); // ensure all open transactions are closed
+            }
+        }
+        return usuarioExistente;
+    }
 
     private boolean validarUsuario(Usuario usuario) {
         return comprobarDatosValidos(usuario);
@@ -105,32 +134,39 @@ public class Gestor_Usuario {
         return notificacion;
     }*/
 
-    public boolean asignarNivel(Usuario usuario,double nota){
-        boolean confirmacion=false;
+    public boolean asignarNivel(int usuarioId, int nivel) {
+        boolean confirmacion = false;
+        EntityTransaction transaction = null;
 
-            if(nota>=0 && nota<=20){
-                usuario.setNivel(1);
-                confirmacion=true;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            Usuario usuarioExistente = entityManager.find(Usuario.class, usuarioId);
+
+            if (usuarioExistente != null) {
+                usuarioExistente.setNivel(nivel);
+                confirmacion = true;
+            } else {
+                System.out.println("No se encontró el usuario con ID: " + usuarioId);
             }
-            if(nota>20 && nota<=40){
-                usuario.setNivel(2);
-                confirmacion=true;
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
             }
-            if(nota>40 && nota<=60){
-                usuario.setNivel(3);
-                confirmacion=true;
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive(); // asegúrate de que todas las transacciones abiertas se cierren
             }
-            if(nota>60 && nota<=80){
-                usuario.setNivel(4);
-                confirmacion=true;
-            }
-            if(nota>80 && nota<=100){
-                usuario.setNivel(5);
-                confirmacion=true;
-            }
+        }
 
         return confirmacion;
     }
+
 
     public boolean validarCedulaEcuatoriana(String cedula) {
         // Verificar si la longitud del número de cédula es 10
@@ -196,5 +232,6 @@ public class Gestor_Usuario {
 
         return 10 - (suma % 10);
     }
+
 
 }

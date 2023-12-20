@@ -16,14 +16,13 @@ public class CalificarServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest solicitud, HttpServletResponse respuesta) throws ServletException, IOException {
-        String nombreUsuario= solicitud.getParameter("usuario");
-        String contrasena = solicitud.getParameter("contrasena");
-        double calificacion= Double.parseDouble(solicitud.getParameter("calificacion")) ;
-        Usuario usuario=LoginServlet.gestor_usuario.buscarUsuario(nombreUsuario, contrasena);
+        String usuarioId= solicitud.getParameter("usuarioId");
+        int calificacion= Integer.parseInt(solicitud.getParameter("calificacion")) ;
+        Usuario usuario=LoginServlet.gestor_usuario.buscarUsuarioPorId(usuarioId);
         String notificacion="";
         if(usuario!=null){
             //misma linea en distintos if's
-            if(LoginServlet.gestor_usuario.asignarNivel(usuario,calificacion)){
+            if(LoginServlet.gestor_usuario.asignarNivel(usuario.getUsuarioId(),calificacion)){
                 notificacion="Usuario calificado y nivel asignado: "+usuario.getNivel();
             }else {
                 notificacion="Ingrese una calificación valida";

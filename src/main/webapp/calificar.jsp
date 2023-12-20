@@ -1,4 +1,4 @@
-<%--
+<%@ page import="entities.Usuario" %><%--
   Created by IntelliJ IDEA.
   User: erick cabezas
   Date: 15/12/2023
@@ -16,9 +16,12 @@
 <div class="contenedor">
     <h1 id="titulo">Datos del Estudiante</h1>
     <form action="CalificarServlet" method="POST">
-        <p><label>Usuario del estudiante:</label><input type="text" name="usuario"></p>
-        <p><b>Calificación del estudiante (0-100):</b></p>
-        <p><label>Calificación:</label><input type="text" name="calificacion"></p>
+
+
+        <p><label>Usuario del estudiante:</label><input type="text" name="usuarioId"></p>
+
+        <p><b>Nivel del estudiante (1-5):</b></p>
+        <p><label>Nivel:</label><input type="text" name="calificacion"></p>
         <button type="submit"> Guardar</button>
     </form>
     <br>

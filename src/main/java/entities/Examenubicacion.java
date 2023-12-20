@@ -81,4 +81,21 @@ public class Examenubicacion {
     public void setInscripcioncursosById(Collection<Inscripcioncurso> inscripcioncursosById) {
         this.inscripcioncursosById = inscripcioncursosById;
     }
+
+    public static void agregarExamen(Examenubicacion examenubicacion){
+        EntityTransaction transaction = null;
+        try{
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(examenubicacion);
+            transaction.commit();
+        }catch(Exception e){
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Error durante la transaccion");
+        }
+    }
 }
