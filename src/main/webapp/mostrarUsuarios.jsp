@@ -13,13 +13,14 @@
     <link rel="stylesheet" type="text/css" href="hojaDeEstilos/stylesLista.css"/>
 </head>
 <body>
-<h1>Lista de usuarios registrados</h1>
-<div class="contenedorBotones">
-    <form action="RegistroServlet" method="GET">
+<div id="cuadro">
+    <div id="cabeza">
+        <h1>Lista de usuarios registrados</h1>
+        <form action="RegistroServlet" method="GET">
             <button type="submit" name="opcRegistro" value="3"> Registro</button>
-    </form>
-</div>
-<div class="tm-list">
+        </form>
+    </div>
+<div class="Lista">
     <%
         List<Usuario> listaUsuarios = (List) request.getSession().getAttribute("listaUsuarios");
         int cont=1;
@@ -33,7 +34,8 @@
             <%cont+=1;%>
         </div>
     </div>
-</div>
 <%}%>
+</div>
+</div>
 </body>
 </html>

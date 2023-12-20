@@ -1,6 +1,6 @@
-<%@ page import="com.example.webcambrige.CursoIngles" %>
+<%@ page import="entities.Cursoingles" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.webcambrige.ExamenUbicacion" %><%--
+<%@ page import="entities.Examenubicacion" %><%--
   Created by IntelliJ IDEA.
   User: erick cabezas
   Date: 16/12/2023
@@ -42,7 +42,7 @@
     <div class="atributosCurso">
         <p><label>ID:</label><input type="text" name="id"></p>
         <p><label>Fecha inicio:</label><input type="text" name="fecha inicio"></p>
-        <p><label>Fecha fin:</label><input type="text" name="Fecha fin"></p>
+        <p><label>Fecha fin:</label><input type="text" name="fecha fin"></p>
         <p><label>Horario:</label><input type="text" name="Horario"></p>
         <p><label>Nivel:</label><input type="text" name="Nivel"></p>
         <p><label>Aula:</label><input type="text" name="Aula"></p>
@@ -83,12 +83,17 @@
 </form>
 <div class="txtAgregado">
     <%
-        String notifica = ".....";
-        notifica = (String) request.getSession().getAttribute("notificacion");
-        if (notifica != null) {
+        try {
+            String notifica = (String) request.getSession().getAttribute("notificacion");
+            if (notifica != null) {
     %>
     <p id="usuarioEsRegistrado"><%=notifica%></p>
-    <%}%>
+    <% } %>
+    <% } catch (Exception e) {
+        e.printStackTrace();
+    }
+    %>
+
     <br>
 </div>
 </body>

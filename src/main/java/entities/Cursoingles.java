@@ -140,4 +140,35 @@ public class Cursoingles {
     public void setInscripcioncursosByCursoInglesId(Collection<Inscripcioncurso> inscripcioncursosByCursoInglesId) {
         this.inscripcioncursosByCursoInglesId = inscripcioncursosByCursoInglesId;
     }
+
+    @Override
+    public String toString() {
+        return "Cursoingles{" +
+                "cursoInglesId=" + cursoInglesId +
+                ", fechaInicio=" + fechaInicio +
+                ", fechaFin=" + fechaFin +
+                ", horarioCurso='" + horarioCurso + '\'' +
+                ", nivel=" + nivel +
+                ", aula=" + aula +
+                ", costo=" + costo +
+                ", inscripcioncursosByCursoInglesId=" + inscripcioncursosByCursoInglesId +
+                '}';
+    }
+
+    public void agregarCurso(Cursoingles cursoingles){
+        EntityTransaction transaction = null;
+        try{
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(cursoingles);
+            transaction.commit();
+        }catch(Exception e){
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Error durante la transaccion");
+        }
+    }
 }

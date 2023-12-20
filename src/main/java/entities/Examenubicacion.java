@@ -82,6 +82,16 @@ public class Examenubicacion {
         this.inscripcioncursosById = inscripcioncursosById;
     }
 
+
+    @Override
+    public String toString() {
+        return "Examenubicacion{" +
+                "id=" + id +
+                ", horario='" + horario + '\'' +
+                ", fechaExamen=" + fechaExamen +
+                '}';
+    }
+
     public static void agregarExamen(Examenubicacion examenubicacion){
         EntityTransaction transaction = null;
         try{

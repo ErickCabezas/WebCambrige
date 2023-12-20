@@ -1,4 +1,4 @@
-<%@ page import="com.example.webcambrige.CursoIngles" %>
+<%@ page import="entities.Cursoingles" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: erick cabezas
@@ -10,20 +10,21 @@
 <html>
 <head>
     <title>Cursos</title>
-    <link rel="stylesheet" type="text/css" href="hojaDeEstilos/stylesLista.css"/>
+    <link rel="stylesheet" type="text/css" href="hojaDeEstilos/stylesCursos.css"/>
 </head>
 <body>
-<h1>Lista de cursos registrados</h1>
-<div class="contenedorBotones">
-    <form action="CursosYExamenesServlet" method="GET">
-        <button type="submit" name="operacion" value="4"> Regresar</button>
-    </form>
-</div>
+<div id="cuadro">
+    <div id="cabeza">
+        <h1>Lista de cursos registrados</h1>
+        <form action="CursosYExamenesServlet" method="GET">
+            <button type="submit" name="operacion" value="4"> Regresar</button>
+        </form>
+    </div>
 <div id="Cursos">
     <%
-        List<CursoIngles> cursos = (List) request.getSession().getAttribute("listaCursos");
+        List<Cursoingles> cursos = (List) request.getSession().getAttribute("listaCursos");
         int cont=1;
-        for(CursoIngles curso: cursos){
+        for(Cursoingles curso: cursos){
     %>
     <div class="tm-list-item">
         <div class="tm-black-bg tm-list-item-text">
@@ -32,8 +33,8 @@
             <%cont+=1;%>
         </div>
     </div>
-</div>
 <%}%>
-
+</div>
+</div>
 </body>
 </html>
