@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 100px;
+    font-family: "JetBrains Mono Thin";
+    background-color: #D9D9D9;
+}
+
+#cuadro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 620px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 15px;
+}
+
+#cabeza{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid silver;
+}
+
+#cabeza button{
+    height: 125%;
+    width: 100px;
+    margin-right: -48px;
+    border: 0px;
+    border-radius: 0px 10px 0px 0px;
+    background-color: #6C3483; color: #fff;
+    font-size: 16px;
+}
+
+#cabeza button:hover{
+    background-color: #fff; color: #000;
+    cursor: pointer;
+}
+
+#cuadro h1{
+    color: #fff;
+    padding: 0px 0px 0px 30px;
+}
+
+h3{
+    color: #6C3483;
+}
+
+#cuadro form {
+    padding: 0 47px;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center; /* Alinea los elementos horizontalmente al centro */
+    align-items: center;
+}
+
+#cursos div{
+    color: #fff;
+    padding-left: 2%;
+    border-radius: 10px;
+}
+
+#cursos div:nth-child(2n) {
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 5px 0px 5px 2%;
+}

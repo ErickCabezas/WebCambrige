@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Cursos</title>
-    <link rel="stylesheet" type="text/css" href="hojaDeEstilos/stylesLista.css"/>
+    <link rel="stylesheet" type="text/css" href="hojaDeEstilos/stylesCursos.css"/>
 </head>
 <body>
 <div id="cuadro">
