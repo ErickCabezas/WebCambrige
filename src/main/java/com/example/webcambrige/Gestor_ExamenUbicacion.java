@@ -99,6 +99,36 @@ public class Gestor_ExamenUbicacion {
         return examenExistente;
     }
 
+    public List<Examenubicacion> listarExamenes() {
+        List<Examenubicacion> examenes = new ArrayList<>();
+        EntityTransaction transaction = null;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String query = "SELECT e FROM Examenubicacion e";
+
+            examenes = entityManager
+                    .createQuery(query, Examenubicacion.class)
+                    .getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive();
+            }
+        }
+        return examenes;
+    }
+
+
+
     public String eliminarExamen(int id) {
         String notificacion = "";
         Examenubicacion examen = buscarExamen(id);

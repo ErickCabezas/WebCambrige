@@ -107,11 +107,70 @@ public class Gestor_Cursos {
             e.printStackTrace();
         } finally {
             if (transaction != null) {
-                transaction.isActive(); // ensure all open transactions are closed
+                transaction.isActive();
             }
         }
         return cursoExistente;
     }
+
+    public void borrarCurso(int cursoId) {
+        EntityTransaction transaction = null;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            Cursoingles cursoExistente = entityManager.find(Cursoingles.class, cursoId);
+
+            if (cursoExistente != null) {
+                entityManager.remove(cursoExistente);
+                transaction.commit();
+                System.out.println("Curso eliminado exitosamente.");
+            } else {
+                System.out.println("No se encontró el curso con ID: " + cursoId);
+            }
+
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive();
+            }
+        }
+    }
+
+    public List<Cursoingles> listarCursos() {
+        List<Cursoingles> cursos = new ArrayList<>();
+        EntityTransaction transaction = null;
+        try {
+            EntityManager entityManager = ConexionBD.entityManager;
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String query = "SELECT c FROM Cursoingles c";
+
+            cursos = entityManager
+                    .createQuery(query, Cursoingles.class)
+                    .getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction != null) {
+                transaction.isActive();
+            }
+        }
+        return cursos;
+    }
+
+
 
 
 }

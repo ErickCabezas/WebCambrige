@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import servlet.LoginServlet;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static entities.Inscripcioncurso.agregarInscripcion;
 import static entities.Examenubicacion.agregarExamen;
@@ -16,7 +17,10 @@ public class main {
 
 
     public static void main(String[] args) {
-        Inscripcioncurso inscripcioncurso = buscarInscripcionPorUsuario(2);
-        inscripcioncurso.toString();
+        Gestor_ExamenUbicacion gestorExamenUbicacion = new Gestor_ExamenUbicacion();
+        List<Examenubicacion> lista = gestorExamenUbicacion.listarExamenes();
+        for(Examenubicacion examen: gestorExamenUbicacion.listarExamenes()) {
+            examen.toString();
+        }
     }
 }

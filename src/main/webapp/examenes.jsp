@@ -1,4 +1,4 @@
-<%@ page import="com.example.webcambrige.ExamenUbicacion" %>
+<%@ page import="entities.Examenubicacion" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: erick cabezas
@@ -21,14 +21,14 @@
 </div>
 <div id="Examenes">
     <%
-        List<ExamenUbicacion> examenes = (List) request.getSession().getAttribute("listaExamenes");
+        List<Examenubicacion> examenes = (List) request.getSession().getAttribute("listaExamenes");
         int cont=1;
-        for(ExamenUbicacion examen: examenes){
+        for(Examenubicacion examen: examenes){
     %>
     <div class="tm-list-item">
         <div class="tm-black-bg tm-list-item-text">
             <h3 class="tm-list-item-name">examen N° <%=cont%></h3>
-            <p class="tm-list-item-description">Info: <%= examen.toString()%></p>
+            <p class="tm-list-item-description">Info: <%=examen.toString()%></p>
             <%cont+=1;%>
         </div>
     </div>

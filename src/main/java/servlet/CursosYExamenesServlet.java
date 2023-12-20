@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import javax.lang.model.util.SimpleElementVisitor6;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
@@ -18,18 +19,18 @@ import java.text.SimpleDateFormat;
 @WebServlet(name="CursosYExamenesServlet", urlPatterns = {"/CursosYExamenesServlet"})
 public class CursosYExamenesServlet extends HttpServlet {
     private Gestor_Cursos cursos = new Gestor_Cursos();
-    public Gestor_ExamenUbicacion examenesUbicacion= new Gestor_ExamenUbicacion();
+    private Gestor_ExamenUbicacion examenesUbicacion= new Gestor_ExamenUbicacion();
     @Override
     protected void doGet(HttpServletRequest solicitud, HttpServletResponse respuesta) throws ServletException, IOException {
         int opcion = Integer.parseInt(solicitud.getParameter("operacion"));
         HttpSession misesion = solicitud.getSession();
         switch (opcion){
             case 1:
-                misesion.setAttribute("listaCursos", cursos.getCursos());
+                misesion.setAttribute("listaCursos", cursos.listarCursos());
                 respuesta.sendRedirect("cursos.jsp");
                 break;
             case 2:
-                misesion.setAttribute("listaExamenes", examenesUbicacion.getExamenes());
+                misesion.setAttribute("listaExamenes", examenesUbicacion.listarExamenes());
                 respuesta.sendRedirect("examenes.jsp");
                 break;
             case 3:
@@ -78,11 +79,11 @@ public class CursosYExamenesServlet extends HttpServlet {
     public Cursoingles AgregarCurso(HttpServletRequest solicitud) throws ParseException {
         String fechaInicioStr = solicitud.getParameter("fecha inicio");
         String fechaFinStr = solicitud.getParameter("fecha fin");
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatoFechaInicio = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatoFechaFin = new SimpleDateFormat("yyyy-MM-dd");
 
-
-        java.util.Date utilInicio = formatoFecha.parse(fechaInicioStr);
-        java.util.Date utilFin = formatoFecha.parse(fechaFinStr);
+        java.util.Date utilInicio = formatoFechaInicio.parse(fechaInicioStr);
+        java.util.Date utilFin = formatoFechaFin.parse(fechaFinStr);
         java.sql.Date fechaInicio = new java.sql.Date(utilInicio.getTime());
         java.sql.Date fechaFin = new java.sql.Date(utilFin.getTime());
 

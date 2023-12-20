@@ -141,6 +141,20 @@ public class Cursoingles {
         this.inscripcioncursosByCursoInglesId = inscripcioncursosByCursoInglesId;
     }
 
+    @Override
+    public String toString() {
+        return "Cursoingles{" +
+                "cursoInglesId=" + cursoInglesId +
+                ", fechaInicio=" + fechaInicio +
+                ", fechaFin=" + fechaFin +
+                ", horarioCurso='" + horarioCurso + '\'' +
+                ", nivel=" + nivel +
+                ", aula=" + aula +
+                ", costo=" + costo +
+                ", inscripcioncursosByCursoInglesId=" + inscripcioncursosByCursoInglesId +
+                '}';
+    }
+
     public void agregarCurso(Cursoingles cursoingles){
         EntityTransaction transaction = null;
         try{
