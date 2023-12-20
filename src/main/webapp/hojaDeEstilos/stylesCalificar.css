@@ -5,6 +5,38 @@ body {
     background-size: cover;
 }
 
+form{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+}
+
+input{
+    border-radius: 10px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+button{
+    background-color: #6C3483; color: #fff;
+    font-size: 16px; border-radius: 15px;
+    border: 0px;
+}
+
+button:hover{
+    background-color: #fff; color: #000;
+    cursor: pointer;
+}
+
+form button{
+    width: 100px;
+    height: 50px;
+    margin: 0px 43%;
+}
+
+.contenedorBotones form button{
+    margin-left: -16%;
+}
 
 .contenedor {
     position: absolute;
