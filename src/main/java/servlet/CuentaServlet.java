@@ -31,6 +31,9 @@ public class CuentaServlet extends HttpServlet {
         if(opcion.equalsIgnoreCase("CursoYExamen")){
             respuesta.sendRedirect("cursosYexamenes.jsp");
         }
+        if(opcion.equalsIgnoreCase("pruebaSimulacion")){
+            respuesta.sendRedirect("pruebaSimulacion.jsp");
+        }
     }
 
     @Override

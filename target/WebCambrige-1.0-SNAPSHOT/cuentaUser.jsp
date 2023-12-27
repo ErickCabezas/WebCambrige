@@ -95,6 +95,14 @@
             <form action="CuentaServlet" method="POST">
                 <button type="submit"> Inscribirse en curso</button>
             </form>
+
+            <%
+                if (usuario.getNivel() == 0) {
+            %>
+            <form action="CuentaServlet" method="GET">
+                <button type="submit" name="opc" value="pruebaSimulacion">Prueba Simulacion</button>
+            </form>
+            <% } %>
         </div>
         <%}%>
         <%}%>
