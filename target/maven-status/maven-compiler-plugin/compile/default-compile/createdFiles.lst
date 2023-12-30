@@ -6,6 +6,7 @@ com\example\webcambrige\InscripcionCurso.class
 com\example\webcambrige\Usuario.class
 com\example\webcambrige\InterfaceTarjeta.class
 servlet\CuentaServlet.class
+entities\PruebaSimulacion.class
 com\example\webcambrige\Efectivo.class
 entities\main.class
 com\example\webcambrige\ExamenUbicacion.class
@@ -26,5 +27,6 @@ entities\Examenubicacion.class
 com\example\webcambrige\Gestor_ExamenUbicacion.class
 entities\Inscripcioncurso.class
 entities\Usuario.class
+servlet\PruebaSimulacionServlet.class
 com\example\webcambrige\Gestor_Cursos.class
 servlet\RegistroServlet.class

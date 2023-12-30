@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Login V1.0</title>
     <link rel="stylesheet" type="text/css" href="hojaDeEstilos/styles.css"/>
 
 </head>
