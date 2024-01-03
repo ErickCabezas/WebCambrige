@@ -25,6 +25,7 @@
                 List<String> respuestasUsuario = (List<String>) request.getSession().getAttribute("respuestasCorrectas");
                 List<String> enunciados = entities.PruebaSimulacion.obtenerEnunciados();
                 for (int i = 0; i < respuestasCorrectas.size(); i++) {
+
             %>
             <p><b>Pregunta: <%=enunciados.get(i) %> </b><p>
             <p>
